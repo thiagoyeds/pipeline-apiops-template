@@ -49,4 +49,4 @@ jobs:
 
       - name: load env vars
         run: |
-          echo ${{ env.SENSEDIA_CLI_TOKEN }}
+          echo $SENSEDIA_CLI_TOKEN
