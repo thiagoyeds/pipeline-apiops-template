@@ -7,6 +7,9 @@ on:
       - hml
       - dev
       
+env:
+  SENSEDIA_CLI_TOKEN: ${{ secrets.SENSEDIA_CLI_TOKEN }}
+
 jobs:
   build:
     name: Build Stage
@@ -43,3 +46,7 @@ jobs:
         run: | 
           chmod +x build-artifact/ssd
           ./build-artifact/ssd --help
+
+      - name: load env vars
+        run: |
+          echo ${{ env.SENSEDIA_CLI_TOKEN }}
