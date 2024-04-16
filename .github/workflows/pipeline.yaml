@@ -47,5 +47,6 @@ jobs:
 
       - name: load env vars
         run: |
-          echo "{\"default\":{\"output\": \"yaml\",\"token\": \"{{ .secrets.SENSEDIA_CLI_TOKEN }}\",\"url\": \"{{ .secrets.SENSEDIA_CLI_MANAGER_URL }}\"}}" > config.json
+          touch file.xml
+          echo "{\"default\":{\"output\": \"yaml\",\"token\": \"${{ secrets.SENSEDIA_CLI_TOKEN }}\",\"url\": \"${{ secrets.SENSEDIA_CLI_MANAGER_URL }}\"}}" > config.json
           cat config.json
