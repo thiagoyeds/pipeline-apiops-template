@@ -38,10 +38,6 @@ jobs:
         with:
           name: build-artifact
           path: build-artifact
-      
-      - name: setup workspace build artifact folder
-        run: |
-          cd build-artifact
 
       - name: run ssd --help
-        run: ./ssd --help
+        run: ./build-artifact/ssd --help
