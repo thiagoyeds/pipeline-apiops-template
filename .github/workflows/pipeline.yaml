@@ -8,19 +8,42 @@ on:
       - dev
       
 jobs:
-  test-01:
+  build:
+    name: Build Stage
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - name: Download ssd
-        run: wget https://github.com/thiagoyeds/pipeline-apiops-template/raw/dev/ssd
-      - name: Grant exec permission by ssd
-        run: chmod +x ssd
-      - name: Run ssd --help
-        run: ./ssd --help
-  test-02:
-    needs: test-01
+      - name: checkout
+        uses: actions/checkout@v3
+      
+      - name: create artifact folder
+        run: |
+          mkdir -p /build-artifact
+          cd /build-artifact
+
+      - name: setup cli
+        run: |
+          wget https://github.com/thiagoyeds/pipeline-apiops-template/raw/dev/ssd
+          chmod +x ssd
+          run: ./ssd --help
+
+      - name: save build artifact
+        uses: actions/upload-artifact@master
+        with:
+          name: build-artifact
+          path: /build-artifact
+  deploy:
+    needs: build
     runs-on: ubuntu-latest
     steps:
-      - name: Run ssd --help
+      - name: download build artifact
+        uses: actions/download-artifact@master
+        with:
+          name: build-artifact
+          path: /build-artifact
+      
+      - name: setup workspace build artifact folder
+        run: |
+          cd /build-artifact
+
+      - name: run ssd --help
         run: ./ssd --help
