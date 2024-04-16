@@ -19,7 +19,7 @@ jobs:
       - name: Run ssd --help
         run: ./ssd --help
   test-02:
-    needs: build
+    needs: test-01
     runs-on: ubuntu-latest
     steps:
       - name: Run ssd --help
