@@ -40,4 +40,6 @@ jobs:
           path: build-artifact
 
       - name: run ssd --help
-        run: ./build-artifact/ssd --help
+        run: | 
+          chmod +x build-artifact/ssd
+          ./build-artifact/ssd --help
