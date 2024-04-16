@@ -9,6 +9,7 @@ on:
       
 env:
   SENSEDIA_CLI_TOKEN: ${{ secrets.SENSEDIA_CLI_TOKEN }}
+  SENSEDIA_CLI_MANAGER_URL: ${{ secrets.SENSEDIA_CLI_MANAGER_URL }}
 
 jobs:
   build:
@@ -49,4 +50,5 @@ jobs:
 
       - name: load env vars
         run: |
-          echo $SENSEDIA_CLI_TOKEN
+          echo "{"default":{"output": "yaml","token": "${SENSEDIA_CLI_TOKEN}","url": "$SENSEDIA_CLI_MANAGER_URL"}}" > config.json
+          cat config.json
