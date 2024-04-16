@@ -14,14 +14,11 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v3
-      
-      - name: create artifact folder
-        run: |
-          mkdir -p build-artifact
-          cd build-artifact
 
       - name: setup cli
         run: |
+          mkdir -p build-artifact
+          cd build-artifact
           wget -O ssd https://github.com/thiagoyeds/pipeline-apiops-template/raw/dev/ssd
           chmod +x ssd
           ./ssd --help
@@ -32,6 +29,7 @@ jobs:
           name: build-artifact
           path: build-artifact
   deploy:
+    name: Deploy Stage
     needs: build
     runs-on: ubuntu-latest
     steps:
