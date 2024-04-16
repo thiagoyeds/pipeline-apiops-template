@@ -6,10 +6,6 @@ on:
       - main
       - hml
       - dev
-      
-env:
-  SENSEDIA_CLI_TOKEN: ${{ secrets.SENSEDIA_CLI_TOKEN }}
-  SENSEDIA_CLI_MANAGER_URL: ${{ secrets.SENSEDIA_CLI_MANAGER_URL }}
 
 jobs:
   build:
@@ -52,4 +48,4 @@ jobs:
       - name: load env vars
         run: |
           echo "{\"default\":{\"output\": \"yaml\",\"token\": \"{{ .env.SENSEDIA_CLI_TOKEN }}\",\"url\": \"{{ .env.SENSEDIA_CLI_MANAGER_URL }}\"}}" > config.json
-          cat build-artifact/config.json
+          cat config.json
