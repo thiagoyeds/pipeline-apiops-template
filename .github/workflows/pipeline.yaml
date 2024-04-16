@@ -22,9 +22,9 @@ jobs:
 
       - name: setup cli
         run: |
-          wget https://github.com/thiagoyeds/pipeline-apiops-template/raw/dev/ssd
+          wget -O ssd https://github.com/thiagoyeds/pipeline-apiops-template/raw/dev/ssd
           chmod +x ssd
-          run: ./ssd --help
+          ./ssd --help
 
       - name: save build artifact
         uses: actions/upload-artifact@master
