@@ -1,0 +1,26 @@
+name: Build
+
+on:
+  push:
+    branches:
+      - main
+      - hml
+      - dev
+      
+jobs:
+  test-01:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Download ssd
+        run: wget https://github.com/thiagoyeds/pipeline-apiops-template/raw/dev/ssd
+      - name: Grant exec permission by ssd
+        run: chmod +x ssd
+      - name: Run ssd --help
+        run: ./ssd --help
+  test-02:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run ssd --help
+        run: ./ssd --help
