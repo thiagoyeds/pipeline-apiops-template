@@ -61,7 +61,7 @@ jobs:
 
       - name: ssd apply crds
         run: |
-          find . -not -path "./.github/*" | grep .yaml > .files-to-apply
+          git diff --name-only HEAD HEAD^1 | grep .yaml | grep -v ".github" > .files-to-apply
 
           echo "ssd apply -f in all kind RestAPI (prefix filename 'api-')"
           cat .files-to-apply | grep "api-" | xargs -n 1 ./ssd apply -f
