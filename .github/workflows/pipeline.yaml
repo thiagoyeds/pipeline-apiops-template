@@ -13,21 +13,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - name: setup cli
-        run: |
-          mkdir -p build-artifact
-          cd build-artifact
-          wget -O ssd https://github.com/thiagoyeds/pipeline-apiops-template/raw/dev/ssd
-          chmod +x ssd
-          ./ssd --help
+      # - name: setup cli
+      #   run: |
+      #     mkdir -p build-artifact
+      #     cd build-artifact
+      #     wget -O ssd https://github.com/thiagoyeds/pipeline-apiops-template/raw/dev/ssd
+      #     chmod +x ssd
+      #     ./ssd --help
 
       - name: save build artifact
         uses: actions/upload-artifact@master
         with:
           name: build-artifact
-          path: build-artifact
+          path: .
   deploy:
     name: Deploy Stage
     needs: build
@@ -38,7 +38,7 @@ jobs:
         uses: actions/download-artifact@master
         with:
           name: build-artifact
-          path: build-artifact
+          path: .
 
       - name: run ssd --help
         run: | 
@@ -53,8 +53,11 @@ jobs:
           cat /home/runner/.sensedia/config.json
           cat /home/runner/.sensedia/.cache.json
 
-      - name: ssd get environment test connection
-        run: ./build-artifact/ssd apim get environment --name "[DEV] Sensedia CLI" --output yaml
+      # - name: ssd get environment test connection
+      #   run: ./build-artifact/ssd apim get environment --name "[DEV] Sensedia CLI" --output yaml
 
-      - name: ssd apply crds
-        run: find . -not -path "./.github/*" | grep .yaml | xargs -n 1 ./build-artifact/ssd apply -f
+      - name: ls
+        run: ls
+
+      # - name: ssd apply crds
+      #   run: find . -not -path "./.github/*" | grep .yaml | xargs -n 1 ./build-artifact/ssd apply -f
