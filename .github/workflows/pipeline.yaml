@@ -47,6 +47,8 @@ jobs:
 
       - name: load env vars
         run: |
-          touch file.xml
           echo "{\"default\":{\"output\": \"yaml\",\"token\": \"${{ secrets.SENSEDIA_CLI_TOKEN }}\",\"url\": \"${{ secrets.SENSEDIA_CLI_MANAGER_URL }}\"}}" > config.json
           cat config.json
+
+      - name: ssd get environment test connection
+        run: ./build-artifact/ssd apim get environment --name "[DEV] Sensedia CLI" --output yaml -c config.json
