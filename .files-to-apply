@@ -1,0 +1,5 @@
+./apps/app-demo.yaml
+./apis/demo/api-demo.yaml
+./apis/demo/apienvlink-demo.yaml
+./apis/demo/dev-plan-demo.yaml
+./environments/env-dev.yaml

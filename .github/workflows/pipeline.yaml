@@ -60,4 +60,20 @@ jobs:
       #   run: ./build-artifact/ssd apim get environment --name "[DEV] Sensedia CLI" --output yaml
 
       - name: ssd apply crds
-        run: find . -not -path "./.github/*" | grep .yaml | xargs -n 1 ./ssd apply -f
+        run: |
+          find . -not -path "./.github/*" | grep .yaml > .files-to-apply
+
+          echo "ssd apply -f in all kind RestAPI (prefix filename 'api-')"
+          cat .files-to-apply | grep "api-" | xargs -n 1 ./ssd apply -f
+
+          echo "ssd apply -f in all kind Environment (prefix filename 'env-')"
+          cat .files-to-apply | grep "env-" | xargs -n 1 ./ssd apply -f
+
+          echo "ssd apply -f in all kind Plan (prefix filename 'plan-')"
+          cat .files-to-apply | grep "plan-" | xargs -n 1 ./ssd apply -f
+
+          echo "ssd apply -f in all kind App (prefix filename 'app-')"
+          cat .files-to-apply | grep "app-" | xargs -n 1 ./ssd apply -f
+
+          echo "ssd apply -f in all kind ApiEnvironmentLink (prefix filename 'apienvlink-')"
+          cat .files-to-apply | grep "apienvlink-" | xargs -n 1 ./ssd apply -f
