@@ -61,19 +61,20 @@ jobs:
 
       - name: ssd apply crds
         run: |
-          git diff --name-only HEAD HEAD^1 | grep .yaml | grep -v ".github" > .files-to-apply
+          git diff --name-only HEAD HEAD^1 | grep .yaml | grep -v ".github" > .crds-to-apply
+          cat .crds-to-apply
 
           echo "ssd apply -f in all kind RestAPI (prefix filename 'api-')"
-          cat .files-to-apply | grep "api-" | xargs -n 1 ./ssd apply -f
+          cat .crds-to-apply | grep "api-" | xargs -n 1 ./ssd apply -f
 
           echo "ssd apply -f in all kind Environment (prefix filename 'env-')"
-          cat .files-to-apply | grep "env-" | xargs -n 1 ./ssd apply -f
+          cat .crds-to-apply | grep "env-" | xargs -n 1 ./ssd apply -f
 
           echo "ssd apply -f in all kind Plan (prefix filename 'plan-')"
-          cat .files-to-apply | grep "plan-" | xargs -n 1 ./ssd apply -f
+          cat .crds-to-apply | grep "plan-" | xargs -n 1 ./ssd apply -f
 
           echo "ssd apply -f in all kind App (prefix filename 'app-')"
-          cat .files-to-apply | grep "app-" | xargs -n 1 ./ssd apply -f
+          cat .crds-to-apply | grep "app-" | xargs -n 1 ./ssd apply -f
 
           echo "ssd apply -f in all kind ApiEnvironmentLink (prefix filename 'apienvlink-')"
-          cat .files-to-apply | grep "apienvlink-" | xargs -n 1 ./ssd apply -f
+          cat .crds-to-apply | grep "apienvlink-" | xargs -n 1 ./ssd apply -f
