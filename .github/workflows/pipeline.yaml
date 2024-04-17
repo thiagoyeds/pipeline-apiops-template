@@ -1,4 +1,4 @@
-name: Build
+name: CI
 
 on:
   push:
@@ -22,6 +22,17 @@ jobs:
       #     wget -O ssd https://github.com/thiagoyeds/pipeline-apiops-template/raw/dev/ssd
       #     chmod +x ssd
       #     ./ssd --help
+      
+      - name: filter differences
+        run: ls
+      
+      - name: set up ruby 3.0
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.0
+          
+      - name: test/lint
+        run: bash <(curl -s https://raw.githubusercontent.com/CICDToolbox/yaml-lint/master/pipeline.sh)
 
       - name: save build artifact
         uses: actions/upload-artifact@master
@@ -40,14 +51,6 @@ jobs:
           name: build-artifact
           path: .
       
-      - name: ls
-        run: ls
-
-      - name: run ssd --help
-        run: | 
-          chmod +x ssd
-          ./ssd --help
-
       - name: load env vars
         run: |
           mkdir -p /home/runner/.sensedia
