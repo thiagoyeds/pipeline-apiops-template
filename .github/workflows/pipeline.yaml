@@ -49,7 +49,9 @@ jobs:
         run: |
           mkdir -p .sensedia
           echo "{\"default\":{\"output\": \"yaml\",\"token\": \"${{ secrets.SENSEDIA_CLI_TOKEN }}\",\"url\": \"${{ vars.SENSEDIA_CLI_MANAGER_URL }}\"}}" > .sensedia/config.json
+          echo "{\"default\":{\"token\":\"${{ secrets.SENSEDIA_CLI_TOKEN  }}\"}}" > .sensedia/.cache.json
           cat .sensedia/config.json
+          cat .sensedia/.cache.json
 
       - name: ssd get environment test connection
         run: ./build-artifact/ssd apim get environment --name "[DEV] Sensedia CLI" --output yaml
