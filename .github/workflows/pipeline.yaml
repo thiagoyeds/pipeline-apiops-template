@@ -47,8 +47,9 @@ jobs:
 
       - name: load env vars
         run: |
-          echo "{\"default\":{\"output\": \"yaml\",\"token\": \"${{ secrets.SENSEDIA_CLI_TOKEN }}\",\"url\": \"${{ vars.SENSEDIA_CLI_MANAGER_URL }}\"}}" > config.json
-          cat config.json
+          mkdir -p .sensedia
+          echo "{\"default\":{\"output\": \"yaml\",\"token\": \"${{ secrets.SENSEDIA_CLI_TOKEN }}\",\"url\": \"${{ vars.SENSEDIA_CLI_MANAGER_URL }}\"}}" > .sensedia/config.json
+          cat .sensedia/config.json
 
       - name: ssd get environment test connection
-        run: ./build-artifact/ssd apim get environment --name "[DEV] Sensedia CLI" --output yaml -c config.json
+        run: ./build-artifact/ssd apim get environment --name "[DEV] Sensedia CLI" --output yaml
