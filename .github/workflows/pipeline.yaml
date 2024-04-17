@@ -61,7 +61,7 @@ jobs:
 
       - name: ssd apply crds
         run: |
-          git diff --name-only HEAD^ HEAD -- | grep .yaml | grep -v ".github" > .crds-to-apply
+          git diff --name-only HEAD^1 HEAD -- | grep .yaml | grep -v ".github" > .crds-to-apply
           echo "all newed/changed CRDs"
           cat .crds-to-apply
 
