@@ -39,6 +39,9 @@ jobs:
         with:
           name: build-artifact
           path: .
+      
+      - name: ls
+        run: ls
 
       - name: run ssd --help
         run: | 
@@ -55,9 +58,6 @@ jobs:
 
       # - name: ssd get environment test connection
       #   run: ./build-artifact/ssd apim get environment --name "[DEV] Sensedia CLI" --output yaml
-
-      - name: ls
-        run: ls
 
       # - name: ssd apply crds
       #   run: find . -not -path "./.github/*" | grep .yaml | xargs -n 1 ./build-artifact/ssd apply -f
