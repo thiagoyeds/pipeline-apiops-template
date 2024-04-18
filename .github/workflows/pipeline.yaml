@@ -20,10 +20,6 @@ jobs:
         run: |
           git diff --name-only ${{ github.event.before }} ${{ github.event.after }} > .diff-files
           cat .diff-files | grep -v ".github/" | grep .yaml  > .crds-to-apply
-      # - name: set up ruby 3.0
-      #   uses: ruby/setup-ruby@v1
-      #   with:
-      #     ruby-version: 3.0
       - name: test/lint
         run: bash <(curl -s https://raw.githubusercontent.com/CICDToolbox/yaml-lint/master/pipeline.sh)
       - name: save build artifact
@@ -61,17 +57,17 @@ jobs:
           echo "all newed/changed CRDs"
           cat .crds-to-apply
 
-          echo "ssd apply -f in all kind RestAPI (prefix filename 'api-')"
-          cat .crds-to-apply | grep -r -e "[kK]ind:[ ]+RestAPI" | xargs -n 1 ./ssd apply -f
+          echo "ssd apply -f in all kind RestAPI"
+          cat .crds-to-apply | grep -r -e "[kK]ind:[ ]+RestAPI" | xargs -n 1 --no-run-if-empty -t ./ssd apply -f
 
-          echo "ssd apply -f in all kind Environment (prefix filename 'env-')"
-          cat .crds-to-apply | grep -r -e "[kK]ind:[ ]+Environment" | xargs -n 1 ./ssd apply -f
+          echo "ssd apply -f in all kind Environment"
+          cat .crds-to-apply | grep -r -e "[kK]ind:[ ]+Environment" | xargs -n 1 --no-run-if-empty -t ./ssd apply -f
 
-          echo "ssd apply -f in all kind Plan (prefix filename 'plan-')"
-          cat .crds-to-apply | grep -r -e "[kK]ind:[ ]+Plan" | xargs -n 1 ./ssd apply -f
+          echo "ssd apply -f in all kind Plan"
+          cat .crds-to-apply | grep -r -e "[kK]ind:[ ]+Plan" | xargs -n 1 --no-run-if-empty -t ./ssd apply -f
 
-          echo "ssd apply -f in all kind App (prefix filename 'app-')"
-          cat .crds-to-apply | grep -r -e "[kK]ind:[ ]+App" | xargs -n 1 ./ssd apply -f
+          echo "ssd apply -f in all kind App"
+          cat .crds-to-apply | grep -r -e "[kK]ind:[ ]+App" | xargs -n 1 --no-run-if-empty  -t./ssd apply -f
 
-          echo "ssd apply -f in all kind ApiEnvironmentLink (prefix filename 'apienvlink-')"
-          cat .crds-to-apply | grep -r -e "[kK]ind:[ ]+ApiEnvironmentLink" | xargs -n 1 ./ssd apply -f
+          echo "ssd apply -f in all kind ApiEnvironmentLink"
+          cat .crds-to-apply | grep -r -e "[kK]ind:[ ]+ApiEnvironmentLink" | xargs -n 1 --no-run-if-empty -t ./ssd apply -f
