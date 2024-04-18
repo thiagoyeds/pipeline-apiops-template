@@ -19,7 +19,7 @@ jobs:
       - name: filter differences
         run: |
           git diff --name-only ${{ github.event.before }} ${{ github.event.after }} > .diff-files
-          cat .diff-files
+          cat .diff-files | grep -v ".github/" | grep .yaml  > .crds-to-apply
       # - name: set up ruby 3.0
       #   uses: ruby/setup-ruby@v1
       #   with:
@@ -56,26 +56,22 @@ jobs:
       #      https://github.com/thiagoyeds/pipeline-apiops-template/raw/dev/ssd
       #     chmod +x ssd
       #     ./ssd --help
-      - name: git log
-        run: git log
+      - name: ssd apply crds
+        run: |
+          echo "all newed/changed CRDs"
+          cat .crds-to-apply
 
-      # - name: ssd apply crds
-      #   run: |
-      #     find . -not -path "./.github/*" | grep .yaml > .crds-to-apply
-      #     echo "all newed/changed CRDs"
-      #     cat .crds-to-apply
+          echo "ssd apply -f in all kind RestAPI (prefix filename 'api-')"
+          cat .crds-to-apply | grep -r -e "[kK]ind:[ ]+RestAPI" | xargs -n 1 ./ssd apply -f
 
-      #     echo "ssd apply -f in all kind RestAPI (prefix filename 'api-')"
-      #     cat .crds-to-apply | grep "api-" | xargs -n 1 ./ssd apply -f
+          echo "ssd apply -f in all kind Environment (prefix filename 'env-')"
+          cat .crds-to-apply | grep -r -e "[kK]ind:[ ]+Environment" | xargs -n 1 ./ssd apply -f
 
-      #     echo "ssd apply -f in all kind Environment (prefix filename 'env-')"
-      #     cat .crds-to-apply | grep "env-" | xargs -n 1 ./ssd apply -f
+          echo "ssd apply -f in all kind Plan (prefix filename 'plan-')"
+          cat .crds-to-apply | grep -r -e "[kK]ind:[ ]+Plan" | xargs -n 1 ./ssd apply -f
 
-      #     echo "ssd apply -f in all kind Plan (prefix filename 'plan-')"
-      #     cat .crds-to-apply | grep "plan-" | xargs -n 1 ./ssd apply -f
+          echo "ssd apply -f in all kind App (prefix filename 'app-')"
+          cat .crds-to-apply | grep -r -e "[kK]ind:[ ]+App" | xargs -n 1 ./ssd apply -f
 
-      #     echo "ssd apply -f in all kind App (prefix filename 'app-')"
-      #     cat .crds-to-apply | grep "app-" | xargs -n 1 ./ssd apply -f
-
-      #     echo "ssd apply -f in all kind ApiEnvironmentLink (prefix filename 'apienvlink-')"
-      #     cat .crds-to-apply | grep "apienvlink-" | xargs -n 1 ./ssd apply -f
+          echo "ssd apply -f in all kind ApiEnvironmentLink (prefix filename 'apienvlink-')"
+          cat .crds-to-apply | grep -r -e "[kK]ind:[ ]+ApiEnvironmentLink" | xargs -n 1 ./ssd apply -f

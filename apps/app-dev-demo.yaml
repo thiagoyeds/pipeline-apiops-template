@@ -1,5 +1,5 @@
 apiVersion: api-management.sensedia.com/v1
-kind: App
+kind:  App
 spec:
   name: "[APP][CLI][DEV] Default App"
   clientId: 1ab4b00a-8ff942f0-bf7a-6d5f2ff94912
