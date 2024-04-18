@@ -5,7 +5,7 @@ spec:
   apiRef:
     name: cli-swapi-poc
     version: 1.0.0
-  default: true
+  default: false
   flows:
   - context:
       revision: all
