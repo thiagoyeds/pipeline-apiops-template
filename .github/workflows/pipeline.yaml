@@ -20,7 +20,6 @@ jobs:
         run: |
           git diff --name-only ${{ github.event.before }} ${{ github.event.after }} > .diff-files
           cat .diff-files
-        
       # - name: set up ruby 3.0
       #   uses: ruby/setup-ruby@v1
       #   with:
