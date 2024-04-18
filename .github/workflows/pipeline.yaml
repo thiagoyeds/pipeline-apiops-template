@@ -14,14 +14,6 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v4
-      # - name: setup cli
-      #   run: |
-      #     mkdir -p build-artifact
-      #     cd build-artifact
-      #     wget -O ssd \
-      #      https://github.com/thiagoyeds/pipeline-apiops-template/raw/dev/ssd
-      #     chmod +x ssd
-      #     ./ssd --help
       - name: filter differences
         run: ls
       # - name: set up ruby 3.0
@@ -30,7 +22,16 @@ jobs:
       #     ruby-version: 3.0
       - name: test/lint
         run: bash <(curl -s https://raw.githubusercontent.com/CICDToolbox/yaml-lint/master/pipeline.sh)
-
+      - name: setup cli
+        run: chmod +x ssd
+      # - name: setup cli
+      #   run: |
+      #     mkdir -p build-artifact
+      #     cd build-artifact
+      #     wget -O ssd \
+      #      https://github.com/thiagoyeds/pipeline-apiops-template/raw/dev/ssd
+      #     chmod +x ssd
+      #     ./ssd --help
       - name: save build artifact
         uses: actions/upload-artifact@master
         with:
