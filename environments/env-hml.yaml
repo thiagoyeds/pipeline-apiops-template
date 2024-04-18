@@ -1,8 +1,8 @@
 apiVersion: api-management.sensedia.com/v1
 kind: Environment
 spec:
-  name: '[DEV] Sensedia CLI'
-  description: env DEV demo pipeline apiops
+  name: '[HML] Sensedia CLI'
+  description: env HML demo pipeline apiops
   deploymentPermission:
     type: Organization
   tracePermission:
@@ -11,7 +11,7 @@ spec:
     name: default
   inboundURL:
     inboundAddressRef:
-      name: '[DEV] Sensedia CLI'
+      name: '[HML] Sensedia CLI'
     path: ""
   mapVars:
   - name: SW Api
