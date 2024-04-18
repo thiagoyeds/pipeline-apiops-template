@@ -22,16 +22,6 @@ jobs:
       #     ruby-version: 3.0
       - name: test/lint
         run: bash <(curl -s https://raw.githubusercontent.com/CICDToolbox/yaml-lint/master/pipeline.sh)
-      - name: setup cli
-        run: chmod +x ssd
-      # - name: setup cli
-      #   run: |
-      #     mkdir -p build-artifact
-      #     cd build-artifact
-      #     wget -O ssd \
-      #      https://github.com/thiagoyeds/pipeline-apiops-template/raw/dev/ssd
-      #     chmod +x ssd
-      #     ./ssd --help
       - name: save build artifact
         uses: actions/upload-artifact@master
         with:
@@ -55,6 +45,17 @@ jobs:
           echo "{\"default\":{\"token\":\"${{ secrets.SENSEDIA_CLI_TOKEN  }}\"}}" > /home/runner/.sensedia/.cache.json
           cat /home/runner/.sensedia/config.json
           cat /home/runner/.sensedia/.cache.json
+
+      - name: setup cli
+        run: chmod +x ssd
+      # - name: setup cli
+      #   run: |
+      #     mkdir -p build-artifact
+      #     cd build-artifact
+      #     wget -O ssd \
+      #      https://github.com/thiagoyeds/pipeline-apiops-template/raw/dev/ssd
+      #     chmod +x ssd
+      #     ./ssd --help
 
       # - name: ssd get environment test connection
       #   run: ./build-artifact/ssd apim get environment --name "[DEV] Sensedia CLI" --output yaml
