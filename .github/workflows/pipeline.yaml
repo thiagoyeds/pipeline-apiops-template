@@ -62,10 +62,10 @@ jobs:
           cat .crds-to-apply | grep "restapi-" > .crds-restapi-to-apply
           cat .crds-restapi-to-apply | xargs -n 1 --no-run-if-empty -t ./ssd apply -f
 
-          echo "ssd apply -f in all kind Environment"
+          # echo "ssd apply -f in all kind Environment"
           # cat .crds-to-apply | grep -r -e "[kK]ind:[ ]*Environment" > .crds-env-to-apply
-          cat .crds-to-apply | grep "env-" > .crds-env-to-apply
-          cat .crds-env-to-apply | xargs -n 1 --no-run-if-empty -t ./ssd apply -f
+          # cat .crds-to-apply | grep "env-" > .crds-env-to-apply
+          # cat .crds-env-to-apply | xargs -n 1 --no-run-if-empty -t ./ssd apply -f
 
           echo "ssd apply -f in all kind Plan"
           # cat .crds-to-apply | grep -r -e "[kK]ind:[ ]*Plan" > .crds-plan-to-apply
