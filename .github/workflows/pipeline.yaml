@@ -81,7 +81,15 @@ jobs:
           # cat .crds-to-apply | grep -r -e "[kK]ind:[ ]*ApiEnvironmentLink" > .crds-appenvlink-to-apply
           cat .crds-to-apply | grep "apienvlink-" > .crds-appenvlink-to-apply | true
           cat .crds-appenvlink-to-apply | xargs -n 1 --no-run-if-empty -t ./ssd apply -f
-      - name: yq test
+      - name: ssd deploy
         run: |
           sudo snap install yq
-          yq --help
+          for i in $(cat .crds-appenvlink-to-apply); do
+            apiName=$(yq '.spec.apiRef.name' $i)
+            readarray envList < <(yq e -o=j -I=0 '.spec.environmentRef[]' $i )
+
+            for env in "${envList[@]}"; do
+              echo "./ssd apim deploy \"$apiName\" --environment \"$envName\" --revision \"1\""
+              ./ssd apim deploy "$apiName" --environment "$envName" --revision "1"
+            done
+          done
