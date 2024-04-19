@@ -83,7 +83,9 @@ jobs:
           cat .crds-appenvlink-to-apply | xargs -n 1 --no-run-if-empty -t ./ssd apply -f
       - name: ssd deploy
         run: |
-          sudo snap install yq
+          if [ -n $(cat .crds-appenvlink-to-apply) ]; then
+            sudo snap install yq
+          fi
           for i in $(cat .crds-appenvlink-to-apply); do
             apiName=$(yq '.spec.apiRef.name' $i)
             apiVersion=$(yq '.spec.apiRef.version' $i)
