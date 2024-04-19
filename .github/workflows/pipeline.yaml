@@ -86,9 +86,11 @@ jobs:
           sudo snap install yq
           for i in $(cat .crds-appenvlink-to-apply); do
             apiName=$(yq '.spec.apiRef.name' $i)
+            apiVersion=$(yq '.spec.apiRef.version' $i)
             readarray envList < <(yq e -o=j -I=0 '.spec.environmentRef[]' $i )
 
             for env in "${envList[@]}"; do
+              envName=$(echo "$env" | yq e '.name' -)
               echo "./ssd apim deploy api \"$apiName\" -v \"$apiVersion\" --environment \"$envName\" --revision \"1\""
               ./ssd apim deploy api "$apiName" -v $apiVersion --environment "$envName" --revision "1"
             done
