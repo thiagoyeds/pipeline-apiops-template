@@ -81,3 +81,7 @@ jobs:
           # cat .crds-to-apply | grep -r -e "[kK]ind:[ ]*ApiEnvironmentLink" > .crds-appenvlink-to-apply
           cat .crds-to-apply | grep "apienvlink-" > .crds-appenvlink-to-apply | true
           cat .crds-appenvlink-to-apply | xargs -n 1 --no-run-if-empty -t ./ssd apply -f
+      - name: yq test
+        run: |
+          snap install yq
+          yq --help
