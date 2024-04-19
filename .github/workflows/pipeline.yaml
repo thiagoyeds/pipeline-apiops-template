@@ -83,5 +83,5 @@ jobs:
           cat .crds-appenvlink-to-apply | xargs -n 1 --no-run-if-empty -t ./ssd apply -f
       - name: yq test
         run: |
-          snap install yq
+          sudo snap install yq
           yq --help
