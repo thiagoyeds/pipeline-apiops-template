@@ -18,7 +18,7 @@ jobs:
           fetch-depth: 0
       - name: filter differences
         run: |
-          git diff --name-only ${{ github.event.before }} ${{ github.event.after }} > .diff-files
+          git diff --name-only ${{ github.event.before }} ${{ github.event.after }} > .diff-files | true
           cat .diff-files | grep -v ".github/" | grep .yaml  > .crds-to-apply
       - name: test/lint
         run: bash <(curl -s https://raw.githubusercontent.com/CICDToolbox/yaml-lint/master/pipeline.sh)
