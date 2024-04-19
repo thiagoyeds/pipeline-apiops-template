@@ -3,8 +3,8 @@ kind: Plan
 spec:
   name: '[HML][CLI] Default Plan'
   apiRef:
-    name: cli-swapi-poc
     version: 1.0.0
+    name: cli-swapi-poc
   default: false
   flows:
   - context:
