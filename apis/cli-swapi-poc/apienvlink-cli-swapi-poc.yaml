@@ -1,0 +1,8 @@
+apiVersion: api-management.sensedia.com/v1
+kind: ApiEnvironmentLink
+spec:
+  apiRef:
+    version: "1.0.0"
+    name: "cli-swapi-poc"
+  environmentRef:
+    - name: "[HML] Sensedia CLI"
