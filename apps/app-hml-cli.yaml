@@ -4,8 +4,8 @@ spec:
   name: "[APP][CLI][HML] Default App"
   clientId: 1ab4b00a-8ff942f0-bf7a-6d5f2ff94913
   secret: 6a65dde9-a0f2-a5e-81b0-22c135870611
-  developer: leonardo.americo@sensedia.com
   description: APP Sample
+  developer: leonardo.americo@sensedia.com
   status: APPROVED
   link: ""
   showAppGallery: true
