@@ -89,7 +89,7 @@ jobs:
             readarray envList < <(yq e -o=j -I=0 '.spec.environmentRef[]' $i )
 
             for env in "${envList[@]}"; do
-              echo "./ssd apim deploy \"$apiName\" --environment \"$envName\" --revision \"1\""
-              ./ssd apim deploy "$apiName" --environment "$envName" --revision "1"
+              echo "./ssd apim deploy api \"$apiName\" -v \"$apiVersion\" --environment \"$envName\" --revision \"1\""
+              ./ssd apim deploy api "$apiName" -v $apiVersion --environment "$envName" --revision "1"
             done
           done
