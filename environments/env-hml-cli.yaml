@@ -5,10 +5,10 @@ spec:
   description: env HML demo pipeline apiops
   deploymentPermission:
     type: Organization
-  tracePermission:
-    type: Organization
   gatewayPoolRef:
     name: default
+  tracePermission:
+    type: Organization
   inboundURL:
     inboundAddressRef:
       name: '[HML] Sensedia CLI'
