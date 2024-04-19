@@ -1,0 +1,21 @@
+apiVersion: api-management.sensedia.com/v1
+kind: Plan
+spec:
+  name: '[HML][CLI] Default Plan'
+  apiRef:
+    name: cli-swapi-poc
+    version: 1.0.0
+  default: false
+  flows:
+  - context:
+      revision: all
+      resourceRef:
+        name: all
+      operationRef:
+        method: all
+        path: /
+    requestInterceptors:
+    - restrictAccess:
+        environmentRefs:
+        - name: "[HML] Sensedia CLI"
+        type: ALLOW_LIST
