@@ -7,7 +7,7 @@ spec:
   basePath: /star-wars/v1
   stageRef:
     name: Draft
-  description: API Sample
+  description: API Sample - new description
   resources:
   - name: /people
     operations:
