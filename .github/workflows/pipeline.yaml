@@ -31,7 +31,7 @@ jobs:
     name: Deploy Stage
     needs: build
     runs-on: ubuntu-latest
-    environment: dev
+    environment: ${{ github.ref_name }}
     steps:
       - name: download build artifact
         uses: actions/download-artifact@master
