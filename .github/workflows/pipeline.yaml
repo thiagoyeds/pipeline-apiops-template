@@ -1,0 +1,99 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+      - hml
+      - dev
+
+jobs:
+  build:
+    name: Build Stage
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: filter differences
+        run: |
+          git diff --name-only ${{ github.event.before }} ${{ github.event.after }} > .diff-files
+          cat .diff-files | grep -v ".github/" | grep .yaml  > .crds-to-apply | true
+      - name: test/lint
+        run: bash <(curl -s https://raw.githubusercontent.com/CICDToolbox/yaml-lint/master/pipeline.sh)
+      - name: save build artifact
+        uses: actions/upload-artifact@master
+        with:
+          name: build-artifact
+          path: .
+  deploy:
+    name: Deploy Stage
+    needs: build
+    runs-on: ubuntu-latest
+    environment: ${{ github.ref_name }}
+    steps:
+      - name: download build artifact
+        uses: actions/download-artifact@master
+        with:
+          name: build-artifact
+          path: .
+      - name: load env vars
+        run: |
+          mkdir -p /home/runner/.sensedia
+          echo "{\"default\":{\"output\": \"yaml\",\"token\": \"${{ secrets.SENSEDIA_CLI_TOKEN }}\",\"url\": \"${{ vars.SENSEDIA_CLI_MANAGER_URL }}\"}}" > /home/runner/.sensedia/config.json
+          echo "{\"default\":{\"token\":\"${{ secrets.SENSEDIA_CLI_TOKEN  }}\"}}" > /home/runner/.sensedia/.cache.json
+          cat /home/runner/.sensedia/config.json
+          cat /home/runner/.sensedia/.cache.json
+
+      - name: setup cli
+        run: chmod +x ssd
+      #     wget -O ssd \
+      #      https://github.com/thiagoyeds/pipeline-apiops-template/raw/dev/ssd
+      #     chmod +x ssd
+      #     ./ssd --help
+      - name: ssd apply crds
+        run: |
+          echo "all newed/changed CRDs"
+          cat .crds-to-apply
+
+          echo "ssd apply -f in all kind RestAPI"
+          # cat .crds-to-apply | grep -r -e "[kK]ind:[ ]*RestAPI" > .crds-restapi-to-apply
+          cat .crds-to-apply | grep "restapi-" > .crds-restapi-to-apply | true
+          cat .crds-restapi-to-apply | xargs -n 1 --no-run-if-empty -t ./ssd apply -f
+
+          echo "ssd apply -f in all kind Environment"
+          # cat .crds-to-apply | grep -r -e "[kK]ind:[ ]*Environment" > .crds-env-to-apply
+          cat .crds-to-apply | grep "env-" > .crds-env-to-apply | true
+          cat .crds-env-to-apply | xargs -n 1 --no-run-if-empty -t ./ssd apply -f
+
+          echo "ssd apply -f in all kind Plan"
+          # cat .crds-to-apply | grep -r -e "[kK]ind:[ ]*Plan" > .crds-plan-to-apply
+          cat .crds-to-apply | grep "plan-" > .crds-plan-to-apply | true
+          cat .crds-plan-to-apply | xargs -n 1 --no-run-if-empty -t ./ssd apply -f
+
+          echo "ssd apply -f in all kind App"
+          # cat .crds-to-apply | grep -r -e "[kK]ind:[ ]*App" > .crds-app-to-apply
+          cat .crds-to-apply | grep "app-" > .crds-app-to-apply | true
+          cat .crds-app-to-apply | xargs -n 1 --no-run-if-empty -t ./ssd apply -f
+
+          echo "ssd apply -f in all kind ApiEnvironmentLink"
+          # cat .crds-to-apply | grep -r -e "[kK]ind:[ ]*ApiEnvironmentLink" > .crds-appenvlink-to-apply
+          cat .crds-to-apply | grep "apienvlink-" > .crds-appenvlink-to-apply | true
+          cat .crds-appenvlink-to-apply | xargs -n 1 --no-run-if-empty -t ./ssd apply -f
+      - name: ssd deploy
+        run: |
+          if [ -n $(cat .crds-appenvlink-to-apply) ]; then
+            sudo snap install yq
+          fi
+          for i in $(cat .crds-appenvlink-to-apply); do
+            apiName=$(yq '.spec.apiRef.name' $i)
+            apiVersion=$(yq '.spec.apiRef.version' $i)
+            readarray envList < <(yq e -o=j -I=0 '.spec.environmentRef[]' $i )
+
+            for env in "${envList[@]}"; do
+              envName=$(echo "$env" | yq e '.name' -)
+              echo "./ssd apim deploy api \"$apiName\" -v \"$apiVersion\" --environment \"$envName\" --revision \"1\""
+              ./ssd apim deploy api "$apiName" -v $apiVersion --environment "$envName" --revision "1"
+            done
+          done
