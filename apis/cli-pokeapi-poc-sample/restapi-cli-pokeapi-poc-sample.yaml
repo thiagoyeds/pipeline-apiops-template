@@ -15,8 +15,8 @@ spec:
   flow:
     destination: $poke-url
     requestInterceptors:
-    # - oauth:
-    #     allowedGrantTypes: ["ClientCredentials"]
+    - oauth:
+        allowedGrantTypes: ["ClientCredentials"]
     - log:
         encryptContent: false
         encryptParams: false
