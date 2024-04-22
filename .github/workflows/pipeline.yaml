@@ -64,14 +64,6 @@ jobs:
           cat .crds-to-apply | grep "env-" > .crds-env-to-apply | true
           cat .crds-env-to-apply | xargs -n 1 --no-run-if-empty -t ./ssd apply -f
 
-          echo "ssd apply -f in all kind Plan"
-          cat .crds-to-apply | grep "plan-" > .crds-plan-to-apply | true
-          cat .crds-plan-to-apply | xargs -n 1 --no-run-if-empty -t ./ssd apply -f
-
-          echo "ssd apply -f in all kind App"
-          cat .crds-to-apply | grep "app-" > .crds-app-to-apply | true
-          cat .crds-app-to-apply | xargs -n 1 --no-run-if-empty -t ./ssd apply -f
-
           echo "ssd apply -f in all kind ApiEnvironmentLink"
           cat .crds-to-apply | grep "apienvlink-" > .crds-appenvlink-to-apply | true
           cat .crds-appenvlink-to-apply | xargs -n 1 --no-run-if-empty -t ./ssd apply -f
@@ -79,3 +71,11 @@ jobs:
           echo "ssd apply -f in all kind Deployment"
           cat .crds-to-apply | grep "deployment-" > .crds-deployment-to-apply | true
           cat .crds-deployment-to-apply | xargs -n 1 --no-run-if-empty -t ./ssd apply -f
+
+          echo "ssd apply -f in all kind Plan"
+          cat .crds-to-apply | grep "plan-" > .crds-plan-to-apply | true
+          cat .crds-plan-to-apply | xargs -n 1 --no-run-if-empty -t ./ssd apply -f
+
+          echo "ssd apply -f in all kind App"
+          cat .crds-to-apply | grep "app-" > .crds-app-to-apply | true
+          cat .crds-app-to-apply | xargs -n 1 --no-run-if-empty -t ./ssd apply -f
