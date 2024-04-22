@@ -11,8 +11,8 @@ spec:
     type: Organization
   inboundURL:
     inboundAddressRef:
-      name: 'Produção'
-    path: /cli-test
+      name: Produção
+    path: hml/cli-test
   mapVars:
   - name: SW Api
     description: sw api description

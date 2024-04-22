@@ -17,6 +17,6 @@ spec:
     requestInterceptors:
     - restrictAccess:
         environmentRefs:
-        - name: "[HML] Sensedia CLI"
         - name: "[HML] Sensedia CLI Test"
+        - name: "[HML] Sensedia CLI"
         type: ALLOW_LIST
