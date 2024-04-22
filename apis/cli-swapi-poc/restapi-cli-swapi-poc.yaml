@@ -14,6 +14,7 @@ spec:
     - method: GET
       path: /random
   flow:
+    destination: $sw-url
     requestInterceptors:
     - oauth:
         allowedGrantTypes: ["ClientCredentials"]
