@@ -2,8 +2,8 @@ apiVersion: api-management.sensedia.com/v1
 kind: Deployment
 spec:
   apiRef:
-     name: cli-pokeapi-poc-sample
      version: 2.0.0
+     name: cli-pokeapi-poc-sample
   environmentRef:
      name: "[HML] Sensedia CLI Sample"
   revision: last
