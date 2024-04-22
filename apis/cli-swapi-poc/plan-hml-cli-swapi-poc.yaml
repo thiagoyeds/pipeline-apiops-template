@@ -18,4 +18,5 @@ spec:
     - restrictAccess:
         environmentRefs:
         - name: "[HML] Sensedia CLI"
+        - name: "[HML] Sensedia CLI Test"
         type: ALLOW_LIST
