@@ -78,5 +78,5 @@ jobs:
           cat .crds-appenvlink-to-apply | xargs -n 1 --no-run-if-empty -t ./ssd apply -f
 
           echo "ssd apply -f in all kind Deployment"
-          cat .crds-to-apply | grep "apienvlink-" > .crds-deployment-to-apply | true
+          cat .crds-to-apply | grep "deployment-" > .crds-deployment-to-apply | true
           cat .crds-deployment-to-apply | xargs -n 1 --no-run-if-empty -t ./ssd apply -f
