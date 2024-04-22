@@ -1,0 +1,18 @@
+apiVersion: api-management.sensedia.com/v1
+kind: App
+spec:
+  name: "[APP][Sample][HML] Default App"
+  clientId: 1ab4b00a-8ff942f0-bf7a-6d5f2ff94920
+  secret: 6a65dde9-a0f2-a5e-81b0-22c135870621
+  developer: leonardo.americo@sensedia.com
+  description: APP Sample
+  status: APPROVED
+  link: ""
+  showAppGallery: true
+  ownerType: DEVELOPER
+  apis:
+  - name: cli-pokeapi-poc-sample
+    version: 2.0.0
+    plans:
+    - name: "[HML][Sample] Default Plan"
+      defaultPlan: true

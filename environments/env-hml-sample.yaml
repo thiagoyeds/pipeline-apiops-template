@@ -1,0 +1,22 @@
+apiVersion: api-management.sensedia.com/v1
+kind: Environment
+spec:
+  name: '[HML] Sensedia CLI Sample'
+  description: env HML demo pipeline apiops
+  deploymentPermission:
+    type: Organization
+  gatewayPoolRef:
+    name: default
+  tracePermission:
+    type: Organization
+  inboundURL:
+    inboundAddressRef:
+      name: Produção
+    path: hml/sample-test
+  mapVars:
+  - name: Poke Api
+    description: poke api description
+    vars:
+    - key: poke-url
+      value: https://pokeapi.co/api/v2/
+      variableType: DEFAULT
