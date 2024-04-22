@@ -47,9 +47,10 @@ jobs:
           cat /home/runner/.sensedia/.cache.json
 
       - name: setup cli
-        run: wget -O ssd \
+        run: |
+          wget -O ssd \
             https://github.com/thiagoyeds/pipeline-apiops-template/raw/dev/ssd
-            chmod +x ssd
+          chmod +x ssd
       - name: ssd apply crds
         run: |
           echo "all newed/changed CRDs"
