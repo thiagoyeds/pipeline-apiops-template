@@ -18,5 +18,5 @@ spec:
     description: poke api description
     vars:
     - key: poke-url
-      value: https://pokeapi.co/api/v2/
+      value: https://pokeapi.co/api/v2
       variableType: DEFAULT

@@ -8,10 +8,10 @@ spec:
     name: Draft
   description: API Sample
   resources:
-  - name: /pokemons
+  - name: pokemon
     operations:
     - method: GET
-      path: /pokemons
+      path: pokemon
   flow:
     destination: $poke-url
     requestInterceptors:
