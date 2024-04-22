@@ -1,0 +1,29 @@
+apiVersion: api-management.sensedia.com/v1
+kind: RestAPI
+spec:
+  name: cli-pokeapi-poc-sample
+  version: 2.0.0
+  basePath: /pokemon/v2
+  stageRef:
+    name: Draft
+  description: API Sample
+  resources:
+  - name: /pokemons
+    operations:
+    - method: GET
+      path: /pokemons
+  flow:
+    destination: $poke-url
+    requestInterceptors:
+    # - oauth:
+    #     allowedGrantTypes: ["ClientCredentials"]
+    - log:
+        encryptContent: false
+        encryptParams: false
+    - spikeArrest:
+        interval: Minute
+        limit: 10
+    responseInterceptors:
+    - log:
+        encryptContent: false
+        encryptParams: false
