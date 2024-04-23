@@ -1,0 +1,22 @@
+apiVersion: api-management.sensedia.com/v1
+kind: Environment
+spec:
+  name: '[HML] APIOps API Days Env Sample'
+  description: HML APIOps API Days Env Sample description
+  deploymentPermission:
+    type: Organization
+  gatewayPoolRef:
+    name: default
+  tracePermission:
+    type: Organization
+  inboundURL:
+    inboundAddressRef:
+      name: Produção
+    path: hml/api-days
+  mapVars:
+  - name: Destinations
+    description: destination mapvar description
+    vars:
+    - key: destination-url
+      value: http://ad35299a0ead844078870b3dfbd4d33d-2125055852.us-east-1.elb.amazonaws.com
+      variableType: DEFAULT
