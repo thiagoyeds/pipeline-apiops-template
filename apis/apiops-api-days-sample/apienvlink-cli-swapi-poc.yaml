@@ -2,7 +2,7 @@ apiVersion: api-management.sensedia.com/v1
 kind: ApiEnvironmentLink
 spec:
   apiRef:
-    version: v1
     name: APIOps API Days API Sample
+    version: v1
   environmentRef:
     - name: "[HML] APIOps API Days Env Sample"

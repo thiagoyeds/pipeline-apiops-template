@@ -12,7 +12,7 @@ spec:
   inboundURL:
     path: hml/api-days
     inboundAddressRef:
-      name: Produção
+      name: Produção # https://api-demov3.sensedia.com
   mapVars:
   - name: Destinations
     description: destination mapvar description

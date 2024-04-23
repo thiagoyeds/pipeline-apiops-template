@@ -16,6 +16,6 @@ spec:
         path: /
     requestInterceptors:
     - restrictAccess:
+        type: ALLOW_LIST
         environmentRefs:
         - name: "[HML] APIOps API Days Env Sample"
-        type: ALLOW_LIST

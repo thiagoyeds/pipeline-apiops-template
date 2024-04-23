@@ -5,7 +5,7 @@ spec:
   clientId: 1ab4b00a-8ff942f0-bf7a-6d5f2ff94930
   secret: 6a65dde9-a0f2-a5e-81b0-22c135870635
   developer: leonardo.americo@sensedia.com
-  description: APP Sample
+  description: "[HML] APIOps API Days App Sample"
   status: APPROVED
   link: ""
   showAppGallery: true
