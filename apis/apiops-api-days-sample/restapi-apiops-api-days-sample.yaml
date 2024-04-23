@@ -4,9 +4,9 @@ spec:
   name: APIOps API Days API Sample
   version: v1
   basePath: /api-days/v1
+  description: APIOps API Days API Sample
   stageRef:
     name: Draft
-  description: APIOps API Days API Sample
   resources:
   - name: all
     operations:

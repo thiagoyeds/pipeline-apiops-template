@@ -10,9 +10,9 @@ spec:
   tracePermission:
     type: Organization
   inboundURL:
+    path: hml/api-days
     inboundAddressRef:
       name: Produção
-    path: hml/api-days
   mapVars:
   - name: Destinations
     description: destination mapvar description
