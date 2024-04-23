@@ -2,7 +2,6 @@ apiVersion: api-management.sensedia.com/v1
 kind: Environment
 spec:
   name: '[HML] APIOps API Days Env Sample'
-  description: HML APIOps API Days Env Sample description
   deploymentPermission:
     type: Organization
   gatewayPoolRef:
@@ -13,6 +12,7 @@ spec:
     path: hml/api-days
     inboundAddressRef:
       name: Produção # https://api-demov3.sensedia.com
+  description: HML APIOps API Days Env Sample description
   mapVars:
   - name: Destinations
     description: destination mapvar description

@@ -1,17 +1,12 @@
 apiVersion: api-management.sensedia.com/v1
 kind: RestAPI
 spec:
-  name: APIOps API Days API Sample
   version: v1
+  name: APIOps API Days API Sample
   basePath: /api-days/v1
   description: APIOps API Days API Sample
   stageRef:
     name: Draft
-  resources:
-  - name: all
-    operations:
-    - method: GET
-      path: /
   flow:
     destination: $destination-url
     requestInterceptors:

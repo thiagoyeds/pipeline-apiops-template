@@ -3,8 +3,8 @@ kind: Plan
 spec:
   name: '[HML] API Ops Days Plan Sample'
   apiRef:
-    name: APIOps API Days API Sample
     version: v1
+    name: APIOps API Days API Sample
   default: true
   flows:
   - context:
