@@ -1,0 +1,9 @@
+apiVersion: api-management.sensedia.com/v1
+kind: Deployment
+spec:
+  apiRef:
+     name: APIOps API Days API Sample
+     version: v1
+  environmentRef:
+     name: "[HML] APIOps API Days Env Sample"
+  revision: last

@@ -1,0 +1,29 @@
+apiVersion: api-management.sensedia.com/v1
+kind: RestAPI
+spec:
+  name: APIOps API Days API Sample
+  version: v1
+  basePath: /api-days/v1
+  stageRef:
+    name: Draft
+  description: APIOps API Days API Sample
+  resources:
+  - name: all
+    operations:
+    - method: GET
+      path: ""
+  flow:
+    destination: $destination-url
+    requestInterceptors:
+    - oauth:
+        allowedGrantTypes: ["ClientCredentials"]
+    - log:
+        encryptContent: false
+        encryptParams: false
+    - spikeArrest:
+        interval: Second
+        limit: 10
+    responseInterceptors:
+    - log:
+        encryptContent: false
+        encryptParams: false

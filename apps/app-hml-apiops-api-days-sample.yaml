@@ -1,0 +1,18 @@
+apiVersion: api-management.sensedia.com/v1
+kind: App
+spec:
+  name: "[HML] APIOps API Days App Sample"
+  clientId: 1ab4b00a-8ff942f0-bf7a-6d5f2ff94930
+  secret: 6a65dde9-a0f2-a5e-81b0-22c135870635
+  developer: leonardo.americo@sensedia.com
+  description: APP Sample
+  status: APPROVED
+  link: ""
+  showAppGallery: true
+  ownerType: DEVELOPER
+  apis:
+  - name: APIOps API Days API Sample 
+    version: v1
+    plans:
+    - name: "[HML] API Ops Days Plan Sample"
+      defaultPlan: true
